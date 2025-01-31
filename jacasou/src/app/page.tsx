@@ -4,6 +4,7 @@ import GiftShop from './components/gift-shop';
 import { WeddingTimer } from './components/wedding-timer';
 import Carousel from './components/carousel';
 import { WeddingIntroduction } from './components/wedding-introduction';
+import NavigationMenu from './components/navigation-menu';
 
 export default function Home() {
   const gifts: GiftProps[] = [
@@ -38,6 +39,7 @@ export default function Home() {
 
   return (
     <div className="items-center justify-items-center min-h-screen font-[family-name:var(--font-geist-sans)]">
+        <NavigationMenu />
         <Carousel images={images} />
         <WeddingIntroduction />
         <WeddingTimer date={new Date("2025-05-16T16:00:00")} />

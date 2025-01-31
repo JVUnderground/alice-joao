@@ -1,6 +1,8 @@
-import type { Metadata } from "next";
+'use client';
 import localFont from "next/font/local";
 import "./globals.css";
+import { Provider } from "react-redux";
+import store from "./store";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -13,10 +15,20 @@ const geistMono = localFont({
   weight: "100 900",
 });
 
-export const metadata: Metadata = {
-  title: "Alice e João vão casar",
-  description: "2025-Maio-16",
-};
+const motterdam = localFont({
+  src: "./fonts/Motterdam.ttf",
+  variable: "--font-motterdam",
+  weight: "700",
+});
+
+const heybrights = localFont({
+  src: "./fonts/Heybrights.ttf",
+  variable: "--font-heybrights",
+  weight: "700",
+});
+
+
+
 
 export default function RootLayout({
   children,
@@ -26,9 +38,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${motterdam.variable} ${heybrights.variable} antialiased`}
       >
-        {children}
+        <Provider store={store}>
+          {children}
+        </Provider>
       </body>
     </html>
   );

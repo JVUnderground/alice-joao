@@ -1,6 +1,10 @@
+'use client';
+
 import React, { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import { ModalProps } from './modal'
+import { useDispatch } from 'react-redux'
+import { closeModal, openModal } from '../store/slices'
 
 export interface GiftProps {
     id: number
@@ -27,7 +31,7 @@ export const Gift: React.FC<GiftProps> = ({
     return <div className="gift border-solid border-2 border-white cursor-pointer hover:opacity-75 hover:shadow-xl bg-white shadow-md">
         { image && <Image src={image} alt={title} width={300} height={300} onClick={selectGift} draggable={false}/> }
         <h1 className="grid grid-col-2 text-black">
-            <span className="text-casamento font-bold">{title}</span>
+            <span className="text-casamento font-heybrights">{title}</span>
             { price && <span className="text-cyan font-bold">R$ {price}</span> }
         </h1>
     </div>
@@ -41,17 +45,21 @@ export const GiftModal: React.FC<GiftProps & ModalProps> = ({
     image,
     onClose,
 }) => {
+    const dispatch = useDispatch();
     const textToCopy = '00020126580014BR.GOV.BCB.PIX0136a594e291-3fa5-4b1d-b404-8a75b1498b3c5204000053039865802BR5922Alice Medeiros Reimann6009SAO PAULO62140510KfKFMUdIds630474C8';
     const [copied, setCopied] = useState(false)
     const modalRef = useRef<HTMLDivElement>(null)
     useEffect(() => {
+        dispatch(openModal())
         const handleEscape = (e: KeyboardEvent) => {
             if (e.key === 'Escape') {
+                dispatch(closeModal())
                 onClose()
             }
         }
         const handleClickOutside = (e: MouseEvent) => {
             if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
+                dispatch(closeModal())
                 onClose()
             }
         }
@@ -61,8 +69,9 @@ export const GiftModal: React.FC<GiftProps & ModalProps> = ({
         return () => {
             window.removeEventListener('keydown', handleEscape)
             window.removeEventListener('mousedown', handleClickOutside)
+            dispatch(closeModal())
         }
-    }, [onClose])
+    }, [dispatch, onClose])
 
     const copyToClipboard = () => {
         navigator.clipboard.writeText(textToCopy).then(() => {
@@ -92,7 +101,7 @@ export const GiftModal: React.FC<GiftProps & ModalProps> = ({
                     </p>
                 </div>
 
-                <div className="mt-4 p-4 md:mt-0 md:ml-4 md:w-1/3 lg:w-1/3">
+                <div className="md:mt-0 md:ml-4 md:w-1/3 lg:w-1/3">
                     <div className='flex flex-col items-center p-2'>
                         { price && <p className="text-3xl text-casamento">R$ {price?.toFixed(2)}</p> }
                         <p className="font-extrabold">Código PIX para contribuir</p>
@@ -106,7 +115,7 @@ export const GiftModal: React.FC<GiftProps & ModalProps> = ({
                         />
 
                         <div
-                            className="relative mt-2 p-6 pt-8 border border-gray-400 rounded text-center cursor-pointer max-w-xs overflow-hidden break-words"
+                            className="relative mt-2 p-6 pt-8 border border-gray-400 rounded text-center cursor-pointer max-w-xs overflow-hidden break-words font-geist-mono"
                             onClick={copyToClipboard}
                         >
                             {textToCopy}

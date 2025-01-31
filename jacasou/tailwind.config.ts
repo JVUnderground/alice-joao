@@ -13,6 +13,12 @@ const config: Config = {
         foreground: "var(--foreground)",
         casamento: '#52784f'
       },
+      fontFamily: {
+        'geist-sans': ['var(--font-geist-sans)', 'sans-serif'],
+        'geist-mono': ['var(--font-geist-mono)', 'monospace'],
+        'motterdam': ['var(--font-motterdam)', 'sans-serif'],
+        'heybrights': ['var(--font-heybrights)', 'sans-serif'],	
+      },
     },
   },
   plugins: [],
