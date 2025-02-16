@@ -3,7 +3,6 @@ import { useState } from "react";
 
 export default function RSVP() {
   const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
   const [guestChildren, setGuestChildren] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isConfirmed, setIsConfirmed] = useState(false);
@@ -17,7 +16,6 @@ export default function RSVP() {
 
     const params = new URLSearchParams();
     params.append("entry.1296336332", name);
-    params.append("entry.1546785004", email);
     params.append("entry.939016791", guestChildren);
 
     fetch(formUrl, {
@@ -53,17 +51,23 @@ export default function RSVP() {
             className="w-full p-2 border rounded-lg"
             disabled={isConfirmed}
             onInvalid={e => (e.target as HTMLInputElement).setCustomValidity('Informar o nome completo')}
+            onInput={(e) => (e.target as HTMLInputElement).setCustomValidity("")}
           />
-          <input
-            type="email"
-            placeholder="Meu e-mail é..."
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+          <select
+            value={guestChildren}
+            onChange={(e) => setGuestChildren(e.target.value)}
             required
-            className="w-full p-2 border rounded-lg"
-            onInvalid={e => (e.target as HTMLInputElement).setCustomValidity('Informar o seu email')}
+            className={`w-full p-2 border rounded-lg 
+              ${!guestChildren ? "text-xs md:text-base" : "text-black text-sm sm:text-base"}`} // Smaller text only for the first option
+            onInvalid={e => (e.target as HTMLSelectElement).setCustomValidity('Informar se trará criança maior de 10 anos')}
             disabled={isConfirmed}
-          />
+          >
+            <option value="" disabled className="text-gray-500">
+              Trará crianças maiores de 10 anos?
+            </option>
+            <option className="text-black" value="Sim">Sim</option>
+            <option className="text-black" value="Não">Não</option>
+          </select>
           <button
             type="submit"
             disabled={isSubmitting || isConfirmed}
