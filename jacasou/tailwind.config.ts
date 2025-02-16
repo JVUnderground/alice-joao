@@ -11,7 +11,8 @@ const config: Config = {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
-        casamento: '#52784f'
+        casamento: '#52784f',
+        glass: 'rgba(255, 255, 255, 0.7)',
       },
       fontFamily: {
         'geist-sans': ['var(--font-geist-sans)', 'sans-serif'],

@@ -65,7 +65,6 @@ const Carousel: React.FC<CarouselProps> = ({ images }) => {
             onTouchStart={handleTouchStart}
             onTouchMove={swipeable.handleTouchMove}
             onTouchEnd={swipeable.handleTouchEnd}
-            style={{ marginTop: 40}}
         >
             <div
                 className="flex transition-transform duration-500 ease-in-out"

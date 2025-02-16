@@ -28,8 +28,8 @@ export const Gift: React.FC<GiftProps> = ({
         }
     }
 
-    return <div className="gift border-solid border-2 border-white cursor-pointer hover:opacity-75 hover:shadow-xl bg-white shadow-md">
-        { image && <Image src={image} alt={title} width={300} height={300} onClick={selectGift} draggable={false}/> }
+    return <div className="gift border-solid border-2 border-white cursor-pointer hover:opacity-75 hover:shadow-xl bg-glass shadow-md" onClick={selectGift}>
+        { image && <Image src={image} alt={title} width={300} height={300} draggable={false}/> }
         <h1 className="grid grid-col-2 text-black">
             <span className="text-casamento font-heybrights">{title}</span>
             { price && <span className="text-cyan font-bold">R$ {price}</span> }

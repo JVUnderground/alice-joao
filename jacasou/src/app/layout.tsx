@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { Provider } from "react-redux";
 import store from "./store";
+import NavigationMenu from "./components/navigation-menu";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -41,7 +42,10 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} ${motterdam.variable} ${heybrights.variable} antialiased`}
       >
         <Provider store={store}>
+          <NavigationMenu />
+          <div style={{ marginTop: 48}}>
           {children}
+          </div>
         </Provider>
       </body>
     </html>

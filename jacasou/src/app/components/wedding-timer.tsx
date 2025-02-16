@@ -22,27 +22,30 @@ export const WeddingTimer: React.FC<TimerProps> = ({ date }) => {
     }, [date])
 
     return (
-        <div className="text-casamento text-center">
-            <h1 className="text-2xl pb-3">Sexta Feira, 16 de Maio de 2025</h1>
-            <div className="grid grid-cols-4 gap-4">
-                <div className="text-center">
-                    <h1 className="text-6xl font-bold">{timeLeft.days}</h1>
-                    <h2>Dias</h2>
-                </div>
-                <div className="text-center">
-                    <h1 className="text-6xl font-bold">{timeLeft.hours}</h1>
-                    <h2>Horas</h2>
-                </div>
-                <div className="text-center">
-                    <h1 className="text-6xl font-bold">{timeLeft.minutes}</h1>
-                    <h2>Minutos</h2>
-                </div>
-                <div className="text-center">
-                    <h1 className="text-6xl font-bold">{timeLeft.seconds}</h1>
-                    <h2>Segundos</h2>
+        <div className="flex justify-center items-center h-full p-6 mx-4 bg-glass shadow-lg rounded-lg">
+            <div className="text-casamento text-center">
+                <h1 className="text-xl pb-3">Sexta Feira, 16 de Maio de 2025</h1>
+                <div className="grid grid-cols-4 gap-4">
+                    <div className="text-center">
+                        <h1 className="text-4xl md:text-6xl font-bold">{timeLeft.days}</h1>
+                        <h2>Dias</h2>
+                    </div>
+                    <div className="text-center">
+                        <h1 className="text-4xl md:text-6xl font-bold">{timeLeft.hours}</h1>
+                        <h2>Horas</h2>
+                    </div>
+                    <div className="text-center">
+                        <h1 className="text-4xl md:text-6xl font-bold">{timeLeft.minutes}</h1>
+                        <h2>Minutos</h2>
+                    </div>
+                    <div className="text-center">
+                        <h1 className="text-4xl md:text-6xl font-bold">{timeLeft.seconds}</h1>
+                        <h2>Segundos</h2>
+                    </div>
                 </div>
             </div>
         </div>
+
 
     )
 }
