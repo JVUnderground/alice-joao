@@ -7,7 +7,7 @@ import { WeddingIntroduction } from './components/wedding-introduction';
 
 export default function Home() {
   const gifts: GiftProps[] = [
-    { id: 1, description: "hello!", title: "Vôo internacional", image: "/hero.jpg", price: 1000 },
+    { id: 1, description: "hello!", title: "Vôo internacional", image: "/gifts/plane_tickets.jpeg", price: 1000 },
     { id: 2, description: "hello!", title: "Hotel chiiique", image: "/hero.jpg", price: 500 },
     { id: 3, description: "hello!", title: "Passeio de barco", image: "/hero.jpg", price: 400 },
     {
@@ -20,7 +20,7 @@ export default function Home() {
     { id: 5, description: "hello!", title: "Almoço romântico", image: "/hero.jpg", price: 450 },
     { id: 6, description: "hello!", title: "Jantar romântico", image: "/hero.jpg", price: 700 },
     { id: 7, description: "hello!", title: "Ônibus turístico", image: "/hero.jpg", price: 200 },
-    { id: 8, description: "hello!", title: "Massagem de casal", image: "/hero.jpg", price: 600 },
+    { id: 8, description: "hello!", title: "Spa day", image: "/gifts/massagem.jpeg", price: 600 },
     { id: 9, description: "hello!", title: "Aula de culinária à dois", image: "/hero.jpg", price: 300 },
     { id: 10, description: "hello!", title: "Aula de dança", image: "/hero.jpg", price: 300 },
     { id: 11, description: "hello!", title: "Embebedando os noivos", image: "/hero.jpg", price: 400 },
