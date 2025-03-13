@@ -28,7 +28,7 @@ export const Gift: React.FC<GiftProps> = ({
         }
     }
 
-    return <div className="gift border-solid border-2 border-white cursor-pointer hover:opacity-75 hover:shadow-xl bg-glass shadow-md" onClick={selectGift}>
+    return <div className="gift cursor-pointer hover:opacity-75 hover:shadow-xl bg-glass shadow-md" onClick={selectGift}>
         { image && <Image src={image} alt={title} width={300} height={300} draggable={false}/> }
         <h1 className="grid grid-col-2 text-black">
             <span className="text-casamento font-heybrights">{title}</span>
@@ -73,50 +73,56 @@ export const GiftModal: React.FC<GiftProps & ModalProps> = ({
         }
     }, [dispatch, onClose])
 
-    const copyToClipboard = () => {
-        navigator.clipboard.writeText(textToCopy).then(() => {
+    const copyToClipboard = async () => {
+        copyToClipboardWithFallback(textToCopy).then(() => {
             setCopied(true);
-            setTimeout(() => setCopied(false), 2000);
+            setTimeout(() => setCopied(false), 4000);
         });
     };
 
     return (
         <div className="gift-modal fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center">
             <div ref={modalRef} className="gift-modal-content bg-white relative flex flex-col md:flex-row text-black">
-                <div className="flex-shrink-0 md:w-2/3 lg:w-2/3">
+                <div className="">
                     {image && (
-                        <div className="">
-                            <Image
-                                src={image}
-                                alt={title}
-                                width={1000}
-                                height={1000}
-                                draggable={false}
-                                className="w-full h-auto"
-                            />
-                        </div>
+                        <Image
+                            src={image}
+                            alt={title}
+                            width={640}
+                            height={640}
+                            draggable={false}
+                            // className="w-full h-auto"
+                        />
                     )}
-                    <p className="text-center md:text-2xl">
+                    <p className="text-center md:text-1xl">
                         <span className="font-bold text-casamento">{title}</span> - {description}
                     </p>
                 </div>
 
-                <div className="md:mt-0 md:ml-4 md:w-1/3 lg:w-1/3">
+                <div className="md:mt-0 md:ml-4 md:w-1/2 lg:w-1/2">
                     <div className='flex flex-col items-center p-2'>
                         { price && <p className="text-3xl text-casamento">R$ {price?.toFixed(2)}</p> }
                         <p className="font-extrabold">Código PIX para contribuir</p>
-                        <Image
-                            src="/qr-code.jpg"
-                            alt="QR Code"
-                            width={300}
-                            height={300}
-                            draggable={false}
-                            className="mt-2 hidden md:block"
-                        />
+                        <div className='flex flex-row items-center gap-5'>
+                            <Image
+                                src="/qr-code.jpg"
+                                alt="QR Code"
+                                width={150}
+                                height={150}
+                                draggable={false}
+                                className="mt-2 hidden md:block"
+                            />
+                            <div className='flex flex-col text-xs'>
+                                <p><b>CPF:</b> 081.297.149-30</p>
+                                <p><b>Banco:</b> Nubank</p>
+                                <p><b>Agência:</b> 0001</p>
+                                <p><b>Conta:</b> 95061536-9</p>
+                            </div>
+                        </div>
 
                         <div
-                            className="relative mt-2 p-6 pt-8 border border-gray-400 rounded text-center cursor-pointer max-w-xs overflow-hidden break-words font-geist-mono"
-                            onClick={copyToClipboard}
+                            className="relative mt-2 p-4 pt-7 border border-gray-400 rounded text-center cursor-pointer max-w-xs overflow-hidden break-words font-geist-mono text-sm"
+                            onClick={!copied ? copyToClipboard : () => {}}
                         >
                             {textToCopy}
                             <button className="absolute top-0 right-0 font-bold text-white bg-black bg-opacity-50 p-1 rounded">
@@ -129,6 +135,12 @@ export const GiftModal: React.FC<GiftProps & ModalProps> = ({
                                     <span>Copiar</span>
                                 }
                             </button>
+                            { copied ?
+                                <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center">
+                                    <span className="text-glass text-xl">Confere o CPF: <b className='font-extrabold'>081.297.149-30</b></span>
+                                </div> :
+                                null
+                            }
                         </div>
                     </div>
                 </div>
@@ -141,4 +153,30 @@ export const GiftModal: React.FC<GiftProps & ModalProps> = ({
             </div>
         </div>
     );
+}
+
+async function copyToClipboardWithFallback(textToCopy: string) {
+    // Navigator clipboard api needs a secure context (https)
+    if (navigator.clipboard && window.isSecureContext) {
+        await navigator.clipboard.writeText(textToCopy);
+    } else {
+        // Use the 'out of viewport hidden text area' trick
+        const textArea = document.createElement("textarea");
+        textArea.value = textToCopy;
+            
+        // Move textarea out of the viewport so it's not visible
+        textArea.style.position = "absolute";
+        textArea.style.left = "-999999px";
+            
+        document.body.prepend(textArea);
+        textArea.select();
+
+        try {
+            document.execCommand('copy');
+        } catch (error) {
+            console.error(error);
+        } finally {
+            textArea.remove();
+        }
+    }
 }

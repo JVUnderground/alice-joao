@@ -43,7 +43,7 @@ export default function RootLayout({
       >
         <Provider store={store}>
           <NavigationMenu />
-          <div style={{ marginTop: 48}}>
+          <div className="md:mt-[48px] mt-[40px]">
           {children}
           </div>
         </Provider>
